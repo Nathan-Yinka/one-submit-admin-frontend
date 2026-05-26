@@ -75,8 +75,14 @@ const Packs = () => {
 			{ Header: "Daily Missions", accessorKey: "daily_missions" },
 			{ Header: "Daily Withdrawals", accessorKey: "daily_withdrawals" },
 			{ Header: "Profit Percentage", accessorKey: "profit_percentage" },
-			{ Header: "Special Product %", accessorKey: "special_product_percentage" },
-			{ Header: "Min Balance for Submissions", accessorKey: "minimum_balance_for_submissions" },
+			{
+				Header: "Special Product %",
+				accessorKey: "special_product_percentage",
+			},
+			{
+				Header: "Min Balance for Submissions",
+				accessorKey: "minimum_balance_for_submissions",
+			},
 			{ Header: "Number of Sets", accessorKey: "number_of_set" },
 			{ Header: "Short Description", accessorKey: "short_description" },
 			{ Header: "Icon", accessorKey: "icon" },
@@ -141,12 +147,19 @@ const Packs = () => {
 			// Clean up the row data for editing - remove formatting and ensure proper values
 			const cleanRow = {
 				...row,
-				usd_value: row.usd_value ? row.usd_value.replace(/[$,]/g, '') : '',
-				profit_percentage: row.profit_percentage ? row.profit_percentage.replace('%', '') : '',
-				special_product_percentage: row.special_product_percentage ? row.special_product_percentage.replace('%', '') : '',
-				minimum_balance_for_submissions: row.minimum_balance_for_submissions ? row.minimum_balance_for_submissions.replace(/[$,]/g, '') : '',
-				payment_bonus: row.payment_bonus || '',
-				payment_limit_to_trigger_bonus: row.payment_limit_to_trigger_bonus || '',
+				usd_value: row.usd_value ? row.usd_value.replace(/[$,]/g, "") : "",
+				profit_percentage: row.profit_percentage
+					? row.profit_percentage.replace("%", "")
+					: "",
+				special_product_percentage: row.special_product_percentage
+					? row.special_product_percentage.replace("%", "")
+					: "",
+				minimum_balance_for_submissions: row.minimum_balance_for_submissions
+					? row.minimum_balance_for_submissions.replace(/[$,]/g, "")
+					: "",
+				payment_bonus: row.payment_bonus || "",
+				payment_limit_to_trigger_bonus:
+					row.payment_limit_to_trigger_bonus || "",
 			};
 			setCurrentRow(cleanRow);
 		} else {
@@ -227,7 +240,15 @@ const Packs = () => {
 	const isSubmittingForm = isPostingPacks || isUpdatingPacks;
 	const handlePacksSubmit = useCallback(async () => {
 		try {
-			if (!validateForm(currentRow, ["is_active", "created_by", "id", "payment_bonus", "payment_limit_to_trigger_bonus"]))
+			if (
+				!validateForm(currentRow, [
+					"is_active",
+					"created_by",
+					"id",
+					"payment_bonus",
+					"payment_limit_to_trigger_bonus",
+				])
+			)
 				return;
 
 			const formData = convertToFormData(currentRow, ["icon"]);
@@ -284,46 +305,51 @@ const Packs = () => {
 
 	const [togglingPackId, setTogglingPackId] = useState(null);
 
-	const handleCheckboxToggle = useCallback(async (id) => {
-		try {
-			// Set loading state for this specific checkbox
-			setTogglingPackId(id);
+	const handleCheckboxToggle = useCallback(
+		async (id) => {
+			try {
+				// Set loading state for this specific checkbox
+				setTogglingPackId(id);
 
-			// Find the current pack to get its current is_active status
-			const currentPack = tableData.find(row => row.id === id);
-			if (!currentPack) return;
+				// Find the current pack to get its current is_active status
+				const currentPack = tableData.find((row) => row.id === id);
+				if (!currentPack) return;
 
-			// Toggle the is_active status
-			const newActiveStatus = !currentPack.is_active;
+				// Toggle the is_active status
+				const newActiveStatus = !currentPack.is_active;
 
-			// Send API request to update the pack status
-			await patchPacksActive({
-				url: ENDPOINT.PATCH_PACKS.replace(":id", id),
-				body: convertToFormData({
-					is_active: newActiveStatus,
-				}),
-			}).unwrap();
+				// Send API request to update the pack status
+				await patchPacksActive({
+					url: ENDPOINT.PATCH_PACKS.replace(":id", id),
+					body: convertToFormData({
+						is_active: newActiveStatus,
+					}),
+				}).unwrap();
 
-			// Update local state after successful API call
-			setTableData((prev) =>
-				prev.map((row) =>
-					row.id === id ? { ...row, is_active: newActiveStatus } : row,
-				),
-			);
+				// Update local state after successful API call
+				setTableData((prev) =>
+					prev.map((row) =>
+						row.id === id ? { ...row, is_active: newActiveStatus } : row,
+					),
+				);
 
-			// Invalidate cache to refresh data
-			invalidateRequestTag(ENDPOINT.GET_PACKS);
+				// Invalidate cache to refresh data
+				invalidateRequestTag(ENDPOINT.GET_PACKS);
 
-			// Show success message
-			toast.success(`Pack ${newActiveStatus ? 'activated' : 'deactivated'} successfully`);
-		} catch (error) {
-			console.error('Error toggling pack status:', error);
-			toast.error('Failed to update pack status');
-		} finally {
-			// Clear loading state
-			setTogglingPackId(null);
-		}
-	}, [tableData, patchPacksActive]);
+				// Show success message
+				toast.success(
+					`Pack ${newActiveStatus ? "activated" : "deactivated"} successfully`,
+				);
+			} catch (error) {
+				console.error("Error toggling pack status:", error);
+				toast.error("Failed to update pack status");
+			} finally {
+				// Clear loading state
+				setTogglingPackId(null);
+			}
+		},
+		[tableData, patchPacksActive],
+	);
 
 	const handlePackDelete = async (id = "", isActive) => {
 		try {
@@ -352,7 +378,7 @@ const Packs = () => {
 					Packages List
 				</h1>
 				<nav className="text-sm text-gray-500">
-					<span>Musosoup</span> /{" "}
+					<span>OneSubmit</span> /{" "}
 					<span className="text-gray-700">Packages List</span>
 				</nav>
 			</div>
@@ -420,23 +446,50 @@ const Packs = () => {
 							{columns.map(
 								(col) =>
 									!hiddenColumns.includes(col.accessorKey) && (
-										<TableCell 
+										<TableCell
 											key={col.accessorKey}
-											style={{ 
-												minWidth: col.accessorKey === 'id' ? 60 : 
-														  col.accessorKey === 'name' ? 120 :
-														  col.accessorKey === 'usd_value' ? 100 :
-														  col.accessorKey === 'daily_missions' ? 100 :
-														  col.accessorKey === 'daily_withdrawals' ? 120 :
-														  col.accessorKey === 'profit_percentage' ? 120 :
-														  col.accessorKey === 'special_product_percentage' ? 140 :
-														  col.accessorKey === 'minimum_balance_for_submissions' ? 160 :
-														  col.accessorKey === 'number_of_set' ? 100 :
-														  col.accessorKey === 'short_description' ? 150 :
-														  col.accessorKey === 'icon' ? 80 :
-														  col.accessorKey === 'created_by' ? 100 :
-														  col.accessorKey === 'is_active' ? 80 :
-														  col.accessorKey === 'actions' ? 200 : 120
+											style={{
+												minWidth:
+													col.accessorKey === "id"
+														? 60
+														: col.accessorKey === "name"
+															? 120
+															: col.accessorKey === "usd_value"
+																? 100
+																: col.accessorKey ===
+																	  "daily_missions"
+																	? 100
+																	: col.accessorKey ===
+																		  "daily_withdrawals"
+																		? 120
+																		: col.accessorKey ===
+																			  "profit_percentage"
+																			? 120
+																			: col.accessorKey ===
+																				  "special_product_percentage"
+																				? 140
+																				: col.accessorKey ===
+																					  "minimum_balance_for_submissions"
+																					? 160
+																					: col.accessorKey ===
+																						  "number_of_set"
+																						? 100
+																						: col.accessorKey ===
+																							  "short_description"
+																							? 150
+																							: col.accessorKey ===
+																								  "icon"
+																								? 80
+																								: col.accessorKey ===
+																									  "created_by"
+																									? 100
+																									: col.accessorKey ===
+																										  "is_active"
+																										? 80
+																										: col.accessorKey ===
+																											  "actions"
+																											? 200
+																											: 120,
 											}}
 										>
 											<TableSortLabel
@@ -463,23 +516,51 @@ const Packs = () => {
 								{columns.map(
 									(col) =>
 										!hiddenColumns.includes(col.accessorKey) && (
-											<TableCell 
+											<TableCell
 												key={col.accessorKey}
-												style={{ 
-													minWidth: col.accessorKey === 'id' ? 60 : 
-															  col.accessorKey === 'name' ? 120 :
-															  col.accessorKey === 'usd_value' ? 100 :
-															  col.accessorKey === 'daily_missions' ? 100 :
-															  col.accessorKey === 'daily_withdrawals' ? 120 :
-															  col.accessorKey === 'profit_percentage' ? 120 :
-															  col.accessorKey === 'special_product_percentage' ? 140 :
-															  col.accessorKey === 'minimum_balance_for_submissions' ? 160 :
-															  col.accessorKey === 'number_of_set' ? 100 :
-															  col.accessorKey === 'short_description' ? 150 :
-															  col.accessorKey === 'icon' ? 80 :
-															  col.accessorKey === 'created_by' ? 100 :
-															  col.accessorKey === 'is_active' ? 80 :
-															  col.accessorKey === 'actions' ? 200 : 120
+												style={{
+													minWidth:
+														col.accessorKey === "id"
+															? 60
+															: col.accessorKey === "name"
+																? 120
+																: col.accessorKey ===
+																	  "usd_value"
+																	? 100
+																	: col.accessorKey ===
+																		  "daily_missions"
+																		? 100
+																		: col.accessorKey ===
+																			  "daily_withdrawals"
+																			? 120
+																			: col.accessorKey ===
+																				  "profit_percentage"
+																				? 120
+																				: col.accessorKey ===
+																					  "special_product_percentage"
+																					? 140
+																					: col.accessorKey ===
+																						  "minimum_balance_for_submissions"
+																						? 160
+																						: col.accessorKey ===
+																							  "number_of_set"
+																							? 100
+																							: col.accessorKey ===
+																								  "short_description"
+																								? 150
+																								: col.accessorKey ===
+																									  "icon"
+																									? 80
+																									: col.accessorKey ===
+																										  "created_by"
+																										? 100
+																										: col.accessorKey ===
+																											  "is_active"
+																											? 80
+																											: col.accessorKey ===
+																												  "actions"
+																												? 200
+																												: 120,
 												}}
 											>
 												{col.accessorKey === "id" ? (
@@ -501,7 +582,9 @@ const Packs = () => {
 															onChange={() =>
 																handleCheckboxToggle(row.id)
 															}
-															disabled={togglingPackId === row.id}
+															disabled={
+																togglingPackId === row.id
+															}
 														/>
 														{togglingPackId === row.id && (
 															<AiOutlineLoading className="animate-spin text-blue-500" />
@@ -549,7 +632,10 @@ const Packs = () => {
 														</Button>
 													</span>
 												) : (
-													<div className="max-w-[200px] truncate" title={row[col.accessorKey]}>
+													<div
+														className="max-w-[200px] truncate"
+														title={row[col.accessorKey]}
+													>
 														{row[col.accessorKey]}
 													</div>
 												)}

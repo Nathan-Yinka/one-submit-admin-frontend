@@ -85,7 +85,7 @@ const Video = () => {
 				<div className="flex justify-end mt-8">
 					<button
 						disabled={isUpdatingVideo}
-						className="px-6 py-3 text-lg text-white bg-blue-600 rounded-md shadow-lg hover:bg-blue-700"
+						className="px-6 py-3 text-lg text-white bg-green-500 rounded-md shadow-lg hover:bg-green-600"
 						onClick={handleSubmit}
 					>
 						{isUpdatingVideo && (

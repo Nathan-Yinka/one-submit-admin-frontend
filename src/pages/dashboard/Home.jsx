@@ -37,26 +37,27 @@ const Home = () => {
 	useEffect(() => {
 		if (cardDataCounts?.total_users_login_today?.users) {
 			setTableData(
-				cardDataCounts?.total_users_login_today?.users.map((item, index) => ({
-					...item,
-					objectID: item.id,
-					id: index + 1,
-					username: item?.username,
-					negative: item?.is_active,
-					negativeProducts: item?.number_of_negative_product,
-					submitted: item?.total_negative_product_submitted,
-					balance: item?.wallet?.balance,
-					submissionTotal: `${item?.total_play}/${item?.total_available_play}`,
-					profit: item?.wallet?.commission,
-					connection: moment(item?.last_connection).format(
-						"DD MM YYYY h:mmA",
-					),
-					onHold: item?.wallet?.on_hold,
-				})),
+				cardDataCounts?.total_users_login_today?.users.map(
+					(item, index) => ({
+						...item,
+						objectID: item.id,
+						id: index + 1,
+						username: item?.username,
+						negative: item?.is_active,
+						negativeProducts: item?.number_of_negative_product,
+						submitted: item?.total_negative_product_submitted,
+						balance: item?.wallet?.balance,
+						submissionTotal: `${item?.total_play}/${item?.total_available_play}`,
+						profit: item?.wallet?.commission,
+						connection: moment(item?.last_connection).format(
+							"DD MM YYYY h:mmA",
+						),
+						onHold: item?.wallet?.on_hold,
+					}),
+				),
 			);
 		}
 	}, [cardDataCounts?.total_users_login_today?.users]);
-
 
 	const [sortConfig, setSortConfig] = useState({
 		key: "id",
@@ -114,7 +115,6 @@ const Home = () => {
 		[],
 	);
 
-
 	const cardData = [
 		{ title: "Total Users", value: cardDataCounts?.total_users, icon: "👤" },
 		{
@@ -136,7 +136,25 @@ const Home = () => {
 
 	const userChartOptions = {
 		chart: { id: "users-chart-static" },
-		colors: ["#1E3A8A"],
+		colors: ["#22c55e"],
+		states: {
+			hover: {
+				filter: {
+					type: "darken",
+					value: 0.9,
+				},
+			},
+		},
+		legend: {
+			markers: {
+				fillColors: ["#22c55e"],
+			},
+		},
+		tooltip: {
+			marker: {
+				fillColors: ["#22c55e"],
+			},
+		},
 		xaxis: {
 			categories: [
 				"Jan",
@@ -157,7 +175,25 @@ const Home = () => {
 
 	const submissionChartOptions = {
 		chart: { id: "submission-chart-static" },
-		colors: ["#1E3A8A"],
+		colors: ["#22c55e"],
+		states: {
+			hover: {
+				filter: {
+					type: "darken",
+					value: 0.9,
+				},
+			},
+		},
+		legend: {
+			markers: {
+				fillColors: ["#22c55e"],
+			},
+		},
+		tooltip: {
+			marker: {
+				fillColors: ["#22c55e"],
+			},
+		},
 		xaxis: {
 			categories: [
 				"Jan",
@@ -210,7 +246,7 @@ const Home = () => {
 			<div className="flex items-center justify-between mb-6">
 				<h1 className="text-2xl font-semibold text-gray-700">Dashboard</h1>
 				<nav className="text-sm text-gray-500">
-					<span>Musosoup</span> /{" "}
+					<span>OneSubmit</span> /{" "}
 					<span className="text-gray-700">Dashboard</span>
 				</nav>
 			</div>
@@ -225,7 +261,7 @@ const Home = () => {
 							<h3 className="font-semibold text-gray-600">
 								{card.title}
 							</h3>
-							<h2 className="text-3xl font-bold text-blue-900">
+							<h2 className="text-3xl font-bold text-green-500">
 								{card.value}
 							</h2>
 						</div>
@@ -262,11 +298,9 @@ const Home = () => {
 				</div>
 			</div>
 
-
-
-
-			<h1 className="text-2xl font-semibold text-gray-700 mt-5 mb-3">Today Login User</h1>
-
+			<h1 className="text-2xl font-semibold text-gray-700 mt-5 mb-3">
+				Today Login User
+			</h1>
 
 			<TableContainer component={Paper} style={{ overflowX: "scroll" }}>
 				<Table>
@@ -323,8 +357,6 @@ const Home = () => {
 					onRowsPerPageChange={handleChangeRowsPerPage}
 				/>
 			</TableContainer>
-
-
 		</div>
 	);
 };

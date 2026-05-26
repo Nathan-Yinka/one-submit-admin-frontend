@@ -55,13 +55,13 @@ const Events = () => {
 			type === "update"
 				? row
 				: {
-					id: "",
-					name: "",
-					image: "",
-					is_active: false,
-					description: "",
-					created_by: "",
-				},
+						id: "",
+						name: "",
+						image: "",
+						is_active: false,
+						description: "",
+						created_by: "",
+					},
 		);
 		setIsModalOpen(true);
 	};
@@ -213,7 +213,7 @@ const Events = () => {
 					Events List
 				</h1>
 				<nav className="text-sm text-gray-500">
-					<span>Musosoup</span> /{" "}
+					<span>OneSubmit</span> /{" "}
 					<span className="text-gray-700">Events List</span>
 				</nav>
 			</div>
@@ -315,9 +315,9 @@ const Events = () => {
 											) : col.accessorKey === "is_active" ? (
 												<Checkbox
 													checked={row.is_active}
-												// onChange={() =>
-												// 	handleCheckboxToggle(row.id)
-												// }
+													// onChange={() =>
+													// 	handleCheckboxToggle(row.id)
+													// }
 												/>
 											) : col.accessorKey === "actions" ? (
 												<span className="flex gap-2">

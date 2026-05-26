@@ -78,7 +78,8 @@ const AllUsers = () => {
 		active: item?.is_active,
 		profit: item?.today_profit || 0,
 		total_submission_set:
-			item?.number_of_submission_set_today || item?.wallet?.package?.number_of_set
+			item?.number_of_submission_set_today ||
+			item?.wallet?.package?.number_of_set
 				? `${item?.number_of_submission_set_today}/${item?.wallet?.package?.number_of_set}`
 				: `0/0`,
 	});
@@ -87,7 +88,9 @@ const AllUsers = () => {
 	const updateUserLocal = (rawUser) => {
 		if (!rawUser || !rawUser.id) return;
 		const transformed = transformUser(rawUser);
-		setTableData((prev) => prev.map((row) => (row.id === transformed.id ? transformed : row)));
+		setTableData((prev) =>
+			prev.map((row) => (row.id === transformed.id ? transformed : row)),
+		);
 		if (selectedRow?.id === transformed.id) {
 			setSelectedRow(transformed);
 		}
@@ -106,7 +109,6 @@ const AllUsers = () => {
 			// silent fail; UI will keep current values
 		}
 	};
-
 
 	useEffect(() => {
 		if (users?.data) {
@@ -263,10 +265,14 @@ const AllUsers = () => {
 		setIsUpdateCustomerBalanceModalOpen(false);
 	};
 
-	const [postCustomerBalance, { isLoading: postingCustomerBalance } ] = usePostRequestMutation();
-	const [postCalculateBalance, { isLoading: calculatingBalance }] = usePostRequestMutation();
-	const [postCalculateProfit, { isLoading: calculatingProfit }] = usePostRequestMutation();
-	const [postCalculateSalary, { isLoading: calculatingSalary }] = usePostRequestMutation();
+	const [postCustomerBalance, { isLoading: postingCustomerBalance }] =
+		usePostRequestMutation();
+	const [postCalculateBalance, { isLoading: calculatingBalance }] =
+		usePostRequestMutation();
+	const [postCalculateProfit, { isLoading: calculatingProfit }] =
+		usePostRequestMutation();
+	const [postCalculateSalary, { isLoading: calculatingSalary }] =
+		usePostRequestMutation();
 	const [preview, setPreview] = useState(null);
 	const [profitPreview, setProfitPreview] = useState(null);
 	const [salaryPreview, setSalaryPreview] = useState(null);
@@ -311,7 +317,11 @@ const AllUsers = () => {
 	useEffect(() => {
 		if (!isUpdateCustomerBalanceModalOpen) return;
 		if (!selectedRow?.id) return;
-		if (customerBalance === "" || customerBalance === null || customerBalance === undefined) {
+		if (
+			customerBalance === "" ||
+			customerBalance === null ||
+			customerBalance === undefined
+		) {
 			setPreview(null);
 			return;
 		}
@@ -335,7 +345,8 @@ const AllUsers = () => {
 		}, 500);
 
 		return () => {
-			if (previewDebounceRef.current) clearTimeout(previewDebounceRef.current);
+			if (previewDebounceRef.current)
+				clearTimeout(previewDebounceRef.current);
 		};
 	}, [isUpdateCustomerBalanceModalOpen, selectedRow?.id, customerBalance]);
 
@@ -372,7 +383,11 @@ const AllUsers = () => {
 	useEffect(() => {
 		if (!isUpdateProfitModalOpen) return;
 		if (!selectedRow?.id) return;
-		if (customerProfit === "" || customerProfit === null || customerProfit === undefined) {
+		if (
+			customerProfit === "" ||
+			customerProfit === null ||
+			customerProfit === undefined
+		) {
 			setProfitPreview(null);
 			return;
 		}
@@ -396,7 +411,8 @@ const AllUsers = () => {
 		}, 500);
 
 		return () => {
-			if (profitPreviewDebounceRef.current) clearTimeout(profitPreviewDebounceRef.current);
+			if (profitPreviewDebounceRef.current)
+				clearTimeout(profitPreviewDebounceRef.current);
 		};
 	}, [isUpdateProfitModalOpen, selectedRow?.id, customerProfit]);
 
@@ -404,7 +420,11 @@ const AllUsers = () => {
 	useEffect(() => {
 		if (!isUpdateSalaryModalOpen) return;
 		if (!selectedRow?.id) return;
-		if (customerSalary === "" || customerSalary === null || customerSalary === undefined) {
+		if (
+			customerSalary === "" ||
+			customerSalary === null ||
+			customerSalary === undefined
+		) {
 			setSalaryPreview(null);
 			return;
 		}
@@ -428,7 +448,8 @@ const AllUsers = () => {
 		}, 500);
 
 		return () => {
-			if (salaryPreviewDebounceRef.current) clearTimeout(salaryPreviewDebounceRef.current);
+			if (salaryPreviewDebounceRef.current)
+				clearTimeout(salaryPreviewDebounceRef.current);
 		};
 	}, [isUpdateSalaryModalOpen, selectedRow?.id, customerSalary]);
 
@@ -578,18 +599,26 @@ const AllUsers = () => {
 		if (value === "") {
 			return { isValid: true, error: "" };
 		}
-		
+
 		const numValue = parseInt(value);
-		const dailyMissions = selectedRow?.daily_missions || selectedRow?.wallet?.package?.daily_missions;
-		
+		const dailyMissions =
+			selectedRow?.daily_missions ||
+			selectedRow?.wallet?.package?.daily_missions;
+
 		if (isNaN(numValue) || numValue < 0) {
-			return { isValid: false, error: "Submission count must be a non-negative number" };
+			return {
+				isValid: false,
+				error: "Submission count must be a non-negative number",
+			};
 		}
-		
+
 		if (dailyMissions && numValue > dailyMissions) {
-			return { isValid: false, error: `Cannot exceed package daily missions limit (${dailyMissions})` };
+			return {
+				isValid: false,
+				error: `Cannot exceed package daily missions limit (${dailyMissions})`,
+			};
 		}
-		
+
 		return { isValid: true, error: "" };
 	};
 
@@ -597,18 +626,26 @@ const AllUsers = () => {
 		if (value === "") {
 			return { isValid: true, error: "" };
 		}
-		
+
 		const numValue = parseInt(value);
-		const numberOfSet = selectedRow?.number_of_set || selectedRow?.wallet?.package?.number_of_set;
-		
+		const numberOfSet =
+			selectedRow?.number_of_set ||
+			selectedRow?.wallet?.package?.number_of_set;
+
 		if (isNaN(numValue) || numValue < 0) {
-			return { isValid: false, error: "Set count must be a non-negative number" };
+			return {
+				isValid: false,
+				error: "Set count must be a non-negative number",
+			};
 		}
-		
+
 		if (numberOfSet && numValue > numberOfSet) {
-			return { isValid: false, error: `Cannot exceed package number of sets limit (${numberOfSet})` };
+			return {
+				isValid: false,
+				error: `Cannot exceed package number of sets limit (${numberOfSet})`,
+			};
 		}
-		
+
 		return { isValid: true, error: "" };
 	};
 
@@ -629,8 +666,12 @@ const AllUsers = () => {
 	const isFormValid = useMemo(() => {
 		const submissionResult = validateSubmissionCountPure(submissionCount);
 		const setResult = validateSetCountPure(setCount);
-		
-		return resetAdminPassword.trim() !== "" && submissionResult.isValid && setResult.isValid;
+
+		return (
+			resetAdminPassword.trim() !== "" &&
+			submissionResult.isValid &&
+			setResult.isValid
+		);
 	}, [resetAdminPassword, submissionCount, setCount, selectedRow]);
 
 	const [postResetAccount, { isLoading: loadingResetAccount }] =
@@ -726,7 +767,8 @@ const AllUsers = () => {
 		useState(false);
 
 	// Package Update Modal State
-	const [isUpdatePackageModalOpen, setIsUpdatePackageModalOpen] = useState(false);
+	const [isUpdatePackageModalOpen, setIsUpdatePackageModalOpen] =
+		useState(false);
 	const [selectedPackage, setSelectedPackage] = useState("");
 	const [packageAdminPassword, setPackageAdminPassword] = useState("");
 	const [availablePacks, setAvailablePacks] = useState([]);
@@ -808,7 +850,7 @@ const AllUsers = () => {
 	};
 
 	const handleSort = (key) => {
-		console.log('Sorting by:', key);
+		console.log("Sorting by:", key);
 		setSortConfig((prevConfig) => {
 			const newConfig = {
 				key,
@@ -817,7 +859,7 @@ const AllUsers = () => {
 						? "desc"
 						: "asc",
 			};
-			console.log('New sort config:', newConfig);
+			console.log("New sort config:", newConfig);
 			return newConfig;
 		});
 	};
@@ -854,36 +896,36 @@ const AllUsers = () => {
 		// Apply the sorting based on the selected filter
 		if (value !== "No filter") {
 			// Extract the field name and direction from the value
-			const isDescending = value.startsWith('-');
+			const isDescending = value.startsWith("-");
 			const fieldName = isDescending ? value.substring(1) : value;
-			
+
 			// Map the field names to actual data fields
 			let sortKey;
-			let sortDirection = isDescending ? 'desc' : 'asc';
-			
+			let sortDirection = isDescending ? "desc" : "asc";
+
 			switch (fieldName) {
-				case 'wallet_commission':
-					sortKey = 'wallet_commission';
+				case "wallet_commission":
+					sortKey = "wallet_commission";
 					break;
-				case 'total_games_played':
-					sortKey = 'total_play';
+				case "total_games_played":
+					sortKey = "total_play";
 					break;
-				case 'total_negative_product':
-					sortKey = 'total_negative_product';
+				case "total_negative_product":
+					sortKey = "total_negative_product";
 					break;
 				default:
 					sortKey = fieldName;
 			}
-			
+
 			setSortConfig({
 				key: sortKey,
-				direction: sortDirection
+				direction: sortDirection,
 			});
 		} else {
 			// Reset to default sorting
 			setSortConfig({
 				key: "id",
-				direction: "asc"
+				direction: "asc",
 			});
 		}
 	};
@@ -1015,7 +1057,7 @@ const AllUsers = () => {
 
 	const fetchActivePacks = () => {
 		if (packs?.data) {
-			const activePacks = packs.data.filter(pack => pack.is_active);
+			const activePacks = packs.data.filter((pack) => pack.is_active);
 			setAvailablePacks(activePacks);
 		}
 	};
@@ -1023,7 +1065,7 @@ const AllUsers = () => {
 	const handleUpdateUserPackage = async () => {
 		try {
 			if (!selectedPackage || !packageAdminPassword) {
-				toast.error('Please fill in all fields');
+				toast.error("Please fill in all fields");
 				return;
 			}
 
@@ -1036,14 +1078,14 @@ const AllUsers = () => {
 				},
 			}).unwrap();
 
-			toast.success(res?.message || 'Package updated successfully');
+			toast.success(res?.message || "Package updated successfully");
 			if (res?.data) updateUserLocal(res.data);
 			else await refetchUsers();
 			invalidateRequestTag(ENDPOINT.GET_ALL_USERS);
 			handleCloseUpdatePackageModal();
 		} catch (err) {
 			console.error(err);
-			toast.error(err?.data?.message || 'Failed to update package');
+			toast.error(err?.data?.message || "Failed to update package");
 		}
 	};
 
@@ -1060,78 +1102,83 @@ const AllUsers = () => {
 	const sortedData = useMemo(() => {
 		const sorted = [...filteredData];
 		if (sortConfig.key) {
-			console.log('Sorting data with key:', sortConfig.key, 'direction:', sortConfig.direction);
-			console.log('Sample data before sort:', sorted.slice(0, 2));
+			console.log(
+				"Sorting data with key:",
+				sortConfig.key,
+				"direction:",
+				sortConfig.direction,
+			);
+			console.log("Sample data before sort:", sorted.slice(0, 2));
 			sorted.sort((a, b) => {
 				let aValue, bValue;
 
 				// Handle different data types and transformations
 				switch (sortConfig.key) {
-					case 'id':
+					case "id":
 						aValue = parseInt(a.id) || 0;
 						bValue = parseInt(b.id) || 0;
 						break;
-					case 'username':
-						aValue = (a.username || '').toLowerCase();
-						bValue = (b.username || '').toLowerCase();
+					case "username":
+						aValue = (a.username || "").toLowerCase();
+						bValue = (b.username || "").toLowerCase();
 						break;
-					case 'phoneNo':
-						aValue = (a.phone_number || '').toLowerCase();
-						bValue = (b.phone_number || '').toLowerCase();
+					case "phoneNo":
+						aValue = (a.phone_number || "").toLowerCase();
+						bValue = (b.phone_number || "").toLowerCase();
 						break;
-					case 'gender':
-						aValue = (a.gender || '').toLowerCase();
-						bValue = (b.gender || '').toLowerCase();
+					case "gender":
+						aValue = (a.gender || "").toLowerCase();
+						bValue = (b.gender || "").toLowerCase();
 						break;
-					case 'balance':
+					case "balance":
 						aValue = parseFloat(a.wallet?.balance || 0);
 						bValue = parseFloat(b.wallet?.balance || 0);
 						break;
-					case 'referralCode':
-						aValue = (a.referral_code || '').toLowerCase();
-						bValue = (b.referral_code || '').toLowerCase();
+					case "referralCode":
+						aValue = (a.referral_code || "").toLowerCase();
+						bValue = (b.referral_code || "").toLowerCase();
 						break;
-					case 'submissions':
+					case "submissions":
 						// Extract total_play for sorting
 						aValue = parseInt(a.total_play || 0);
 						bValue = parseInt(b.total_play || 0);
 						break;
-					case 'profit':
+					case "profit":
 						aValue = parseFloat(a.today_profit || 0);
 						bValue = parseFloat(b.today_profit || 0);
 						break;
-				case 'total_submission_set':
-					// Extract number_of_submission_set_today for sorting
-					aValue = parseInt(a.number_of_submission_set_today || 0);
-					bValue = parseInt(b.number_of_submission_set_today || 0);
-					break;
-				case 'wallet_commission':
-					aValue = parseFloat(a.wallet_commission || 0);
-					bValue = parseFloat(b.wallet_commission || 0);
-					break;
-				case 'total_play':
-					aValue = parseInt(a.total_play || 0);
-					bValue = parseInt(b.total_play || 0);
-					break;
-				case 'total_negative_product':
-					aValue = parseInt(a.total_negative_product || 0);
-					bValue = parseInt(b.total_negative_product || 0);
-					break;
-				case 'today_profit':
-					aValue = parseFloat(a.today_profit || 0);
-					bValue = parseFloat(b.today_profit || 0);
-					break;
-				case 'number_of_submission_set_today':
-					aValue = parseInt(a.number_of_submission_set_today || 0);
-					bValue = parseInt(b.number_of_submission_set_today || 0);
-					break;
-				default:
-					aValue = a[sortConfig.key] || '';
-					bValue = b[sortConfig.key] || '';
+					case "total_submission_set":
+						// Extract number_of_submission_set_today for sorting
+						aValue = parseInt(a.number_of_submission_set_today || 0);
+						bValue = parseInt(b.number_of_submission_set_today || 0);
+						break;
+					case "wallet_commission":
+						aValue = parseFloat(a.wallet_commission || 0);
+						bValue = parseFloat(b.wallet_commission || 0);
+						break;
+					case "total_play":
+						aValue = parseInt(a.total_play || 0);
+						bValue = parseInt(b.total_play || 0);
+						break;
+					case "total_negative_product":
+						aValue = parseInt(a.total_negative_product || 0);
+						bValue = parseInt(b.total_negative_product || 0);
+						break;
+					case "today_profit":
+						aValue = parseFloat(a.today_profit || 0);
+						bValue = parseFloat(b.today_profit || 0);
+						break;
+					case "number_of_submission_set_today":
+						aValue = parseInt(a.number_of_submission_set_today || 0);
+						bValue = parseInt(b.number_of_submission_set_today || 0);
+						break;
+					default:
+						aValue = a[sortConfig.key] || "";
+						bValue = b[sortConfig.key] || "";
 				}
 
 				// Handle numeric comparisons
-				if (typeof aValue === 'number' && typeof bValue === 'number') {
+				if (typeof aValue === "number" && typeof bValue === "number") {
 					if (aValue < bValue) {
 						return sortConfig.direction === "asc" ? -1 : 1;
 					}
@@ -1150,7 +1197,7 @@ const AllUsers = () => {
 				}
 				return 0;
 			});
-			console.log('Sample data after sort:', sorted.slice(0, 2));
+			console.log("Sample data after sort:", sorted.slice(0, 2));
 		}
 		return sorted;
 	}, [filteredData, sortConfig]);
@@ -1172,7 +1219,7 @@ const AllUsers = () => {
 			<div className="flex items-center justify-between mb-6">
 				<h1 className="text-2xl font-semibold text-gray-700">Users List</h1>
 				<nav className="text-sm text-gray-500">
-					<span>Musosoup</span> /{" "}
+					<span>OneSubmit</span> /{" "}
 					<span className="text-gray-700">Users List</span>
 				</nav>
 			</div>
@@ -1251,7 +1298,7 @@ const AllUsers = () => {
 								readOnly: true,
 							}}
 							value={generatedCode}
-							sx={{ minWidth: '200px' }}
+							sx={{ minWidth: "200px" }}
 						/>
 
 						<div className="absolute right-0 -translate-y-1/2 top-1/2">
@@ -1391,12 +1438,12 @@ const AllUsers = () => {
 										) // Filter out hidden columns
 										.map((column) =>
 											column.accessorKey !== "id" &&
-												column.accessorKey !== "profile_picture" ? (
+											column.accessorKey !== "profile_picture" ? (
 												<TableCell key={column.accessorKey}>
 													{row[column.accessorKey]}
 												</TableCell>
 											) : column.accessorKey ===
-												"profile_picture" ? (
+											  "profile_picture" ? (
 												<img
 													src={
 														row[column.accessorKey]
@@ -1809,34 +1856,52 @@ const AllUsers = () => {
 					{/* Real-time Preview Resulting Balance */}
 					<div className="rounded-lg border p-3 text-sm bg-gray-50">
 						<div className="flex items-center justify-between mb-2">
-							<span className="font-medium text-gray-700">Preview resulting balance</span>
-							{calculatingBalance && <AiOutlineLoading className="animate-spin" />}
+							<span className="font-medium text-gray-700">
+								Preview resulting balance
+							</span>
+							{calculatingBalance && (
+								<AiOutlineLoading className="animate-spin" />
+							)}
 						</div>
 						{preview ? (
 							<div className="grid grid-cols-2 gap-3">
 								<div>
 									<p className="text-gray-500">Current balance</p>
-									<p className="font-semibold">{Number(preview.current_balance).toFixed(2)}</p>
+									<p className="font-semibold">
+										{Number(preview.current_balance).toFixed(2)}
+									</p>
 								</div>
 								<div>
 									<p className="text-gray-500">Current on-hold</p>
-									<p className="font-semibold">{Number(preview.current_on_hold).toFixed(2)}</p>
+									<p className="font-semibold">
+										{Number(preview.current_on_hold).toFixed(2)}
+									</p>
 								</div>
 								<div>
 									<p className="text-gray-500">Adjustment</p>
-									<p className="font-semibold">{Number(preview.balance_adjustment).toFixed(2)}</p>
+									<p className="font-semibold">
+										{Number(preview.balance_adjustment).toFixed(2)}
+									</p>
 								</div>
 								<div>
 									<p className="text-gray-500">Resulting balance</p>
-									<p className="font-semibold text-primary">{Number(preview.resulting_balance).toFixed(2)}</p>
+									<p className="font-semibold text-primary">
+										{Number(preview.resulting_balance).toFixed(2)}
+									</p>
 								</div>
 								<div className="col-span-2 text-xs text-gray-600">
-									{preview.negative_balance_cleared && <p>Negative balance will be cleared.</p>}
-									{preview.on_hold_moved_to_balance && <p>Frozen funds will be released to balance.</p>}
+									{preview.negative_balance_cleared && (
+										<p>Negative balance will be cleared.</p>
+									)}
+									{preview.on_hold_moved_to_balance && (
+										<p>Frozen funds will be released to balance.</p>
+									)}
 								</div>
 							</div>
 						) : (
-							<p className="text-xs text-gray-500">Type an amount to see the preview.</p>
+							<p className="text-xs text-gray-500">
+								Type an amount to see the preview.
+							</p>
 						)}
 					</div>
 				</DialogContent>
@@ -1913,38 +1978,78 @@ const AllUsers = () => {
 					{/* Real-time Preview Resulting Profit */}
 					<div className="rounded-lg border p-3 text-sm bg-gray-50">
 						<div className="flex items-center justify-between mb-2">
-							<span className="font-medium text-gray-700">Preview resulting profit</span>
-							{calculatingProfit && <AiOutlineLoading className="animate-spin" />}
+							<span className="font-medium text-gray-700">
+								Preview resulting profit
+							</span>
+							{calculatingProfit && (
+								<AiOutlineLoading className="animate-spin" />
+							)}
 						</div>
 						{profitPreview ? (
 							<div className="grid grid-cols-2 gap-3">
 								<div>
 									<p className="text-gray-500">Current profit</p>
-									<p className="font-semibold">{Number(profitPreview.current_profit).toFixed(2)}</p>
+									<p className="font-semibold">
+										{Number(profitPreview.current_profit).toFixed(2)}
+									</p>
 								</div>
 								<div>
 									<p className="text-gray-500">Current commission</p>
-									<p className="font-semibold">{Number(profitPreview.current_commission).toFixed(2)}</p>
+									<p className="font-semibold">
+										{Number(profitPreview.current_commission).toFixed(
+											2,
+										)}
+									</p>
 								</div>
 								<div>
 									<p className="text-gray-500">Adjustment</p>
-									<p className="font-semibold">{Number(profitPreview.profit_adjustment).toFixed(2)}</p>
+									<p className="font-semibold">
+										{Number(profitPreview.profit_adjustment).toFixed(
+											2,
+										)}
+									</p>
 								</div>
 								<div>
 									<p className="text-gray-500">Resulting profit</p>
-									<p className="font-semibold text-primary">{Number(profitPreview.resulting_profit).toFixed(2)}</p>
+									<p className="font-semibold text-primary">
+										{Number(profitPreview.resulting_profit).toFixed(
+											2,
+										)}
+									</p>
 								</div>
 								<div className="col-span-2">
 									<p className="text-gray-500">Resulting commission</p>
-									<p className="font-semibold text-primary">{Number(profitPreview.resulting_commission).toFixed(2)}</p>
+									<p className="font-semibold text-primary">
+										{Number(
+											profitPreview.resulting_commission,
+										).toFixed(2)}
+									</p>
 								</div>
 								<div className="col-span-2 text-xs text-gray-600">
-									{profitPreview.commission_will_increase && <p>Commission will increase by {Number(profitPreview.profit_difference).toFixed(2)}.</p>}
-									{profitPreview.commission_will_decrease && <p>Commission will decrease by {Number(Math.abs(profitPreview.profit_difference)).toFixed(2)}.</p>}
+									{profitPreview.commission_will_increase && (
+										<p>
+											Commission will increase by{" "}
+											{Number(
+												profitPreview.profit_difference,
+											).toFixed(2)}
+											.
+										</p>
+									)}
+									{profitPreview.commission_will_decrease && (
+										<p>
+											Commission will decrease by{" "}
+											{Number(
+												Math.abs(profitPreview.profit_difference),
+											).toFixed(2)}
+											.
+										</p>
+									)}
 								</div>
 							</div>
 						) : (
-							<p className="text-xs text-gray-500">Type an amount to see the preview.</p>
+							<p className="text-xs text-gray-500">
+								Type an amount to see the preview.
+							</p>
 						)}
 					</div>
 				</DialogContent>
@@ -2021,38 +2126,76 @@ const AllUsers = () => {
 					{/* Real-time Preview Resulting Salary */}
 					<div className="rounded-lg border p-3 text-sm bg-gray-50">
 						<div className="flex items-center justify-between mb-2">
-							<span className="font-medium text-gray-700">Preview resulting salary</span>
-							{calculatingSalary && <AiOutlineLoading className="animate-spin" />}
+							<span className="font-medium text-gray-700">
+								Preview resulting salary
+							</span>
+							{calculatingSalary && (
+								<AiOutlineLoading className="animate-spin" />
+							)}
 						</div>
 						{salaryPreview ? (
 							<div className="grid grid-cols-2 gap-3">
 								<div>
 									<p className="text-gray-500">Current salary</p>
-									<p className="font-semibold">{Number(salaryPreview.current_salary).toFixed(2)}</p>
+									<p className="font-semibold">
+										{Number(salaryPreview.current_salary).toFixed(2)}
+									</p>
 								</div>
 								<div>
 									<p className="text-gray-500">Current balance</p>
-									<p className="font-semibold">{Number(salaryPreview.current_balance).toFixed(2)}</p>
+									<p className="font-semibold">
+										{Number(salaryPreview.current_balance).toFixed(2)}
+									</p>
 								</div>
 								<div>
 									<p className="text-gray-500">Adjustment</p>
-									<p className="font-semibold">{Number(salaryPreview.salary_adjustment).toFixed(2)}</p>
+									<p className="font-semibold">
+										{Number(salaryPreview.salary_adjustment).toFixed(
+											2,
+										)}
+									</p>
 								</div>
 								<div>
 									<p className="text-gray-500">Resulting salary</p>
-									<p className="font-semibold text-primary">{Number(salaryPreview.resulting_salary).toFixed(2)}</p>
+									<p className="font-semibold text-primary">
+										{Number(salaryPreview.resulting_salary).toFixed(
+											2,
+										)}
+									</p>
 								</div>
 								<div className="col-span-2">
 									<p className="text-gray-500">Resulting balance</p>
-									<p className="font-semibold text-primary">{Number(salaryPreview.resulting_balance).toFixed(2)}</p>
+									<p className="font-semibold text-primary">
+										{Number(salaryPreview.resulting_balance).toFixed(
+											2,
+										)}
+									</p>
 								</div>
 								<div className="col-span-2 text-xs text-gray-600">
-									{salaryPreview.balance_will_increase && <p>Balance will increase by {Number(salaryPreview.salary_difference).toFixed(2)}.</p>}
-									{salaryPreview.balance_will_decrease && <p>Balance will decrease by {Number(Math.abs(salaryPreview.salary_difference)).toFixed(2)}.</p>}
+									{salaryPreview.balance_will_increase && (
+										<p>
+											Balance will increase by{" "}
+											{Number(
+												salaryPreview.salary_difference,
+											).toFixed(2)}
+											.
+										</p>
+									)}
+									{salaryPreview.balance_will_decrease && (
+										<p>
+											Balance will decrease by{" "}
+											{Number(
+												Math.abs(salaryPreview.salary_difference),
+											).toFixed(2)}
+											.
+										</p>
+									)}
 								</div>
 							</div>
 						) : (
-							<p className="text-xs text-gray-500">Type an amount to see the preview.</p>
+							<p className="text-xs text-gray-500">
+								Type an amount to see the preview.
+							</p>
 						)}
 					</div>
 				</DialogContent>
@@ -2156,18 +2299,28 @@ const AllUsers = () => {
 
 						{/* Current Package Info */}
 						<div className="bg-gray-50 p-3 rounded-lg">
-							<p className="text-sm font-medium text-gray-700 mb-2">Current Package Limits:</p>
+							<p className="text-sm font-medium text-gray-700 mb-2">
+								Current Package Limits:
+							</p>
 							<div className="grid grid-cols-2 gap-2 text-sm">
 								<div>
-									<span className="text-gray-600">Daily Missions:</span>
+									<span className="text-gray-600">
+										Daily Missions:
+									</span>
 									<span className="ml-2 font-semibold">
-										{selectedRow?.daily_missions || selectedRow?.wallet?.package?.daily_missions || "N/A"}
+										{selectedRow?.daily_missions ||
+											selectedRow?.wallet?.package?.daily_missions ||
+											"N/A"}
 									</span>
 								</div>
 								<div>
-									<span className="text-gray-600">Number of Sets:</span>
+									<span className="text-gray-600">
+										Number of Sets:
+									</span>
 									<span className="ml-2 font-semibold">
-										{selectedRow?.number_of_set || selectedRow?.wallet?.package?.number_of_set || "N/A"}
+										{selectedRow?.number_of_set ||
+											selectedRow?.wallet?.package?.number_of_set ||
+											"N/A"}
 									</span>
 								</div>
 							</div>
@@ -2175,16 +2328,22 @@ const AllUsers = () => {
 
 						{/* Current Values */}
 						<div className="bg-blue-50 p-3 rounded-lg">
-							<p className="text-sm font-medium text-gray-700 mb-2">Current Values:</p>
+							<p className="text-sm font-medium text-gray-700 mb-2">
+								Current Values:
+							</p>
 							<div className="grid grid-cols-2 gap-2 text-sm">
 								<div>
-									<span className="text-gray-600">Today's Submissions:</span>
+									<span className="text-gray-600">
+										Today's Submissions:
+									</span>
 									<span className="ml-2 font-semibold">
 										{selectedRow?.number_of_submission_today || 0}
 									</span>
 								</div>
 								<div>
-									<span className="text-gray-600">Sets Completed:</span>
+									<span className="text-gray-600">
+										Sets Completed:
+									</span>
 									<span className="ml-2 font-semibold">
 										{selectedRow?.number_of_submission_set_today || 0}
 									</span>
@@ -2194,8 +2353,11 @@ const AllUsers = () => {
 
 						{/* Optional Reset Fields */}
 						<div className="space-y-4">
-							<p className="text-sm font-medium text-gray-700">Optional: Set specific values (leave empty for default reset)</p>
-							
+							<p className="text-sm font-medium text-gray-700">
+								Optional: Set specific values (leave empty for default
+								reset)
+							</p>
+
 							<TextField
 								label="Submission Count (Optional - 0 to package daily_missions)"
 								type="number"
@@ -2206,17 +2368,23 @@ const AllUsers = () => {
 									validateSubmissionCount(e.target.value);
 								}}
 								onBlur={(e) => validateSubmissionCount(e.target.value)}
-								inputProps={{ 
-									min: 0, 
-									max: selectedRow?.daily_missions || selectedRow?.wallet?.package?.daily_missions || 999 
+								inputProps={{
+									min: 0,
+									max:
+										selectedRow?.daily_missions ||
+										selectedRow?.wallet?.package?.daily_missions ||
+										999,
 								}}
 								error={!!submissionCountError}
-								helperText={submissionCountError || `Max: ${selectedRow?.daily_missions || selectedRow?.wallet?.package?.daily_missions || "N/A"}`}
+								helperText={
+									submissionCountError ||
+									`Max: ${selectedRow?.daily_missions || selectedRow?.wallet?.package?.daily_missions || "N/A"}`
+								}
 								sx={{
-									'& .MuiOutlinedInput-root': {
-										'&.Mui-error': {
-											'& fieldset': {
-												borderColor: '#d32f2f',
+									"& .MuiOutlinedInput-root": {
+										"&.Mui-error": {
+											"& fieldset": {
+												borderColor: "#d32f2f",
 											},
 										},
 									},
@@ -2233,17 +2401,23 @@ const AllUsers = () => {
 									validateSetCount(e.target.value);
 								}}
 								onBlur={(e) => validateSetCount(e.target.value)}
-								inputProps={{ 
-									min: 0, 
-									max: selectedRow?.number_of_set || selectedRow?.wallet?.package?.number_of_set || 999 
+								inputProps={{
+									min: 0,
+									max:
+										selectedRow?.number_of_set ||
+										selectedRow?.wallet?.package?.number_of_set ||
+										999,
 								}}
 								error={!!setCountError}
-								helperText={setCountError || `Max: ${selectedRow?.number_of_set || selectedRow?.wallet?.package?.number_of_set || "N/A"}`}
+								helperText={
+									setCountError ||
+									`Max: ${selectedRow?.number_of_set || selectedRow?.wallet?.package?.number_of_set || "N/A"}`
+								}
 								sx={{
-									'& .MuiOutlinedInput-root': {
-										'&.Mui-error': {
-											'& fieldset': {
-												borderColor: '#d32f2f',
+									"& .MuiOutlinedInput-root": {
+										"&.Mui-error": {
+											"& fieldset": {
+												borderColor: "#d32f2f",
 											},
 										},
 									},
@@ -2328,7 +2502,7 @@ const AllUsers = () => {
 									onClick={() =>
 										navigator.clipboard.writeText(
 											`${userInfo?.first_name} ${userInfo?.last_name}` ||
-											"N/A",
+												"N/A",
 										)
 									}
 								>
@@ -2482,7 +2656,7 @@ const AllUsers = () => {
 			>
 				<DialogTitle>
 					<span style={{ color: "#1A73E8", fontWeight: "bold" }}>
-						Musosoup
+						OneSubmit
 					</span>
 				</DialogTitle>
 				<DialogContent>

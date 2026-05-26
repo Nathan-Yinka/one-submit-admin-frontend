@@ -56,14 +56,14 @@ const Deposits = () => {
 
 		deposits,
 	} = useDeposit();
-	console.log(deposits)
+	console.log(deposits);
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const depositsData = deposits.data?.map((item) => ({
 		...item,
 		dateTime: item?.date_time,
-		amount: `${item?.amount.toLocaleString('en-US', {
+		amount: `${item?.amount.toLocaleString("en-US", {
 			minimumFractionDigits: 2,
-			maximumFractionDigits: 2
+			maximumFractionDigits: 2,
 		})} USD`,
 		user: String(item?.user?.username),
 	}));
@@ -175,7 +175,7 @@ const Deposits = () => {
 					Deposits List
 				</h1>
 				<nav className="text-sm text-gray-500">
-					<span>Musosoup</span> /{" "}
+					<span>OneSubmit</span> /{" "}
 					<span className="text-gray-700">Deposits List</span>
 				</nav>
 			</div>

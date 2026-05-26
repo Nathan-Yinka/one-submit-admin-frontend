@@ -8,8 +8,8 @@ import { MdOutlineDashboard } from "react-icons/md";
 import { BiUser, BiCog, BiBookOpen } from "react-icons/bi";
 import { AiOutlineLogout, AiOutlineCaretDown } from "react-icons/ai";
 import { FaRegCalendarAlt, FaRegEye, FaVideo } from "react-icons/fa";
-import logoFull from "../../../assets/logo.svg";
-import logoSmall from "../../../assets/logo.svg";
+import logoFull from "../../../assets/logo.avif";
+import logoSmall from "../../../assets/logo.avif";
 import { handleLogout } from "../../../helpers/handle-logout";
 
 function SideBarWeb({ isCollapsed, closeSidebar }) {
@@ -40,11 +40,12 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 
 	return (
 		<div
-			className={`transition-all duration-300 ${isCollapsed ? "w-16" : "w-64"
-				} bg-primary text-white h-full flex flex-col`}
+			className={`transition-all duration-300 ${
+				isCollapsed ? "w-16" : "w-64"
+			} bg-black text-white h-full flex flex-col`}
 		>
 			{/* Logo Section */}
-			<div className="flex items-center justify-center py-4 bg-white border-r-[3px] border-r-[#072C3B]">
+			<div className="flex items-center justify-center py-4 bg-black border-r-[3px] border-r-[#072C3B]">
 				<img
 					src={isCollapsed ? logoSmall : logoFull}
 					alt="Logo"
@@ -58,10 +59,10 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 				<div className="relative group">
 					<NavLink
 						to="/home"
-						end  // Add this prop for exact matching
+						end // Add this prop for exact matching
 						className={({ isActive }) =>
 							isActive
-								? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-primary rounded-md"
+								? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
 								: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
 						}
 						onClick={closeSidebar}
@@ -82,7 +83,7 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 						to="/home/hold"
 						className={({ isActive }) =>
 							isActive
-								? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-primary rounded-md"
+								? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
 								: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
 						}
 						onClick={closeSidebar} // Close sidebar on click
@@ -112,8 +113,9 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 							<>
 								<span>Users management</span>
 								<AiOutlineCaretDown
-									className={`ml-auto transition-transform ${isUsersDropdownOpen ? "rotate-180" : ""
-										}`}
+									className={`ml-auto transition-transform ${
+										isUsersDropdownOpen ? "rotate-180" : ""
+									}`}
 								/>
 							</>
 						)}
@@ -126,7 +128,7 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 								to="/home/allusers"
 								className={({ isActive }) =>
 									isActive
-										? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-primary rounded-md"
+										? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
 										: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
 								}
 								onClick={closeSidebar} // Close sidebar on click
@@ -137,7 +139,7 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 								to="/home/negusers"
 								className={({ isActive }) =>
 									isActive
-										? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-primary rounded-md"
+										? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
 										: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
 								}
 								onClick={closeSidebar} // Close sidebar on click
@@ -161,7 +163,7 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 								to="/home/negusers"
 								className={({ isActive }) =>
 									isActive
-										? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-primary rounded-md"
+										? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
 										: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
 								}
 								onClick={closeSidebar} // Close sidebar on click
@@ -172,7 +174,7 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 								to="/home/negative"
 								className={({ isActive }) =>
 									isActive
-										? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-primary rounded-md"
+										? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
 										: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
 								}
 								onClick={closeSidebar} // Close sidebar on click
@@ -189,7 +191,7 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 						to="/home/products"
 						className={({ isActive }) =>
 							isActive
-								? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-primary rounded-md"
+								? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
 								: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
 						}
 						onClick={closeSidebar} // Close sidebar on click
@@ -212,7 +214,7 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 						to="/home/packs"
 						className={({ isActive }) =>
 							isActive
-								? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-primary rounded-md"
+								? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
 								: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
 						}
 						onClick={closeSidebar} // Close sidebar on click
@@ -259,7 +261,7 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 								to="/home/deposits"
 								className={({ isActive }) =>
 									isActive
-										? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-primary rounded-md"
+										? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
 										: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
 								}
 								onClick={closeSidebar} // Close sidebar on click
@@ -270,7 +272,7 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 								to="/home/withdrawals"
 								className={({ isActive }) =>
 									isActive
-										? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-primary rounded-md"
+										? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
 										: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
 								}
 								onClick={closeSidebar} // Close sidebar on click
@@ -294,7 +296,7 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 								to="/home/deposits"
 								className={({ isActive }) =>
 									isActive
-										? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-primary rounded-md"
+										? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
 										: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
 								}
 								onClick={closeSidebar} // Close sidebar on click
@@ -305,7 +307,7 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 								to="/home/withdrawals"
 								className={({ isActive }) =>
 									isActive
-										? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-primary rounded-md"
+										? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
 										: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
 								}
 								onClick={closeSidebar} // Close sidebar on click
@@ -322,7 +324,7 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 						to="/home/events"
 						className={({ isActive }) =>
 							isActive
-								? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-primary rounded-md"
+								? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
 								: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
 						}
 						onClick={closeSidebar} // Close sidebar on click
@@ -345,7 +347,7 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 						to="/home/logs"
 						className={({ isActive }) =>
 							isActive
-								? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-primary rounded-md"
+								? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
 								: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
 						}
 						onClick={closeSidebar} // Close sidebar on click
@@ -368,7 +370,7 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 						to="/home/settings"
 						className={({ isActive }) =>
 							isActive
-								? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-primary rounded-md"
+								? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
 								: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
 						}
 						onClick={closeSidebar} // Close sidebar on click
@@ -391,7 +393,7 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 						to="/home/video"
 						className={({ isActive }) =>
 							isActive
-								? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-primary rounded-md"
+								? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
 								: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
 						}
 						onClick={closeSidebar} // Close sidebar on click

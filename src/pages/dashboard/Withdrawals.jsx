@@ -206,7 +206,7 @@ const Withdrawals = () => {
 					Withdrawal List
 				</h1>
 				<nav className="text-sm text-gray-500">
-					<span>Musosoup</span> /{" "}
+					<span>OneSubmit</span> /{" "}
 					<span className="text-gray-700">Withdrawal List</span>
 				</nav>
 			</div>
@@ -336,7 +336,7 @@ const Withdrawals = () => {
 																{patchingWithdrawal &&
 																	statusUpdate.id === row.id &&
 																	statusUpdate.action ===
-																	"Processed" && (
+																		"Processed" && (
 																		<AiOutlineLoading className="animate-spin" />
 																	)}
 																Validate Withdrawal
@@ -364,7 +364,7 @@ const Withdrawals = () => {
 																{patchingWithdrawal &&
 																	statusUpdate.id === row.id &&
 																	statusUpdate.action ===
-																	"Rejected" && (
+																		"Rejected" && (
 																		<AiOutlineLoading className="animate-spin" />
 																	)}
 																Cancel Withdrawal

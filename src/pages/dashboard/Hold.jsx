@@ -132,10 +132,10 @@ const Hold = () => {
 		setCurrentRow(
 			type === "add"
 				? {
-					id: "",
-					minimum_amount: "",
-					maximum_amount: "",
-				}
+						id: "",
+						minimum_amount: "",
+						maximum_amount: "",
+					}
 				: row,
 		);
 		setIsModalOpen(true);
@@ -293,7 +293,7 @@ const Hold = () => {
 					Ranges of on hold
 				</h1>
 				<nav className="text-sm text-gray-500">
-					<span>Musosoup</span> /{" "}
+					<span>OneSubmit</span> /{" "}
 					<span className="text-gray-700">Ranges of on hold</span>
 				</nav>
 			</div>

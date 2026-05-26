@@ -37,10 +37,10 @@ const Logs = () => {
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const logsData = logs?.data
 		? logs?.data.map((item) => ({
-			...item,
-			dateTime: moment(item?.created_at).format("DD MMM YYYY h:mm A"),
-			user: item?.user?.username,
-		}))
+				...item,
+				dateTime: moment(item?.created_at).format("DD MMM YYYY h:mm A"),
+				user: item?.user?.username,
+			}))
 		: [];
 
 	const columns = useMemo(
@@ -145,7 +145,7 @@ const Logs = () => {
 			<div className="flex items-center justify-between mb-6">
 				<h1 className="text-2xl font-semibold text-gray-700">Logs</h1>
 				<nav className="text-sm text-gray-500">
-					<span>Musosoup</span> /{" "}
+					<span>OneSubmit</span> /{" "}
 					<span className="text-gray-700">Logs</span>
 				</nav>
 			</div>

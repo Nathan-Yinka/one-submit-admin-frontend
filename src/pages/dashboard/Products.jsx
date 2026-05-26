@@ -121,13 +121,13 @@ const Products = () => {
 			type === "update"
 				? row
 				: {
-					id: "",
-					name: "",
-					price: "",
-					image: "",
-					rating_no: "",
-					date_created: "",
-				},
+						id: "",
+						name: "",
+						price: "",
+						image: "",
+						rating_no: "",
+						date_created: "",
+					},
 		);
 		setIsModalOpen(true);
 	}, []);
@@ -260,7 +260,7 @@ const Products = () => {
 			<div className="flex items-center justify-between mb-6">
 				<h1 className="text-2xl font-semibold text-gray-700">Products</h1>
 				<nav className="text-sm text-gray-500">
-					<span>Musosoup</span> /{" "}
+					<span>OneSubmit</span> /{" "}
 					<span className="text-gray-700">Products</span>
 				</nav>
 			</div>

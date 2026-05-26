@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaCheckCircle } from "react-icons/fa";
 import { motion } from "framer-motion";
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/logo.avif";
 import { usePostRequestMutation } from "../../services/api/request";
 import { ENDPOINT } from "../../constants/endpoint";
 import { useDispatch } from "react-redux";
@@ -26,10 +26,10 @@ const Login = () => {
 
 	// Load saved username on component mount if remember me was enabled
 	useEffect(() => {
-		const savedRememberMe = localStorage.getItem('rememberMe');
-		const savedUsername = localStorage.getItem('savedUsername');
-		
-		if (savedRememberMe === 'true' && savedUsername) {
+		const savedRememberMe = localStorage.getItem("rememberMe");
+		const savedUsername = localStorage.getItem("savedUsername");
+
+		if (savedRememberMe === "true" && savedUsername) {
 			setRememberMe(true);
 			if (emailInputRef.current) {
 				emailInputRef.current.value = savedUsername;
@@ -52,11 +52,11 @@ const Login = () => {
 
 			// Handle remember me functionality
 			if (rememberMe) {
-				localStorage.setItem('rememberMe', 'true');
-				localStorage.setItem('savedUsername', formValues.username_or_email);
+				localStorage.setItem("rememberMe", "true");
+				localStorage.setItem("savedUsername", formValues.username_or_email);
 			} else {
-				localStorage.removeItem('rememberMe');
-				localStorage.removeItem('savedUsername');
+				localStorage.removeItem("rememberMe");
+				localStorage.removeItem("savedUsername");
 			}
 
 			const res = await postLoginForm({
@@ -81,16 +81,16 @@ const Login = () => {
 	};
 
 	return (
-		<div className="flex flex-col items-center justify-center min-h-screen bg-[#edded34d] relative">
+		<div className="flex flex-col items-center justify-center min-h-screen bg-black relative">
 			{/* Logo Section */}
 			<div className="mb-8 text-center">
-				<img src={logo} alt="Musosoup Logo" className="w-500 mx-auto" />
+				<img src={logo} alt="OneSubmit Logo" className="w-500 mx-auto" />
 			</div>
 
 			{/* Card Section */}
 			<div className="w-full max-w-lg p-8 bg-white rounded-lg shadow-lg">
 				<h5 className="mb-8 text-xl font-semibold text-center text-gray-700">
-					Sign in to continue to Musosoup
+					Sign in to continue to OneSubmit
 				</h5>
 
 				<form className="space-y-6" onSubmit={handleSubmit}>
@@ -114,7 +114,10 @@ const Login = () => {
 
 					{/* Password Field */}
 					<div>
-						<label htmlFor="password" className="block text-sm font-medium text-gray-700">
+						<label
+							htmlFor="password"
+							className="block text-sm font-medium text-gray-700"
+						>
 							Password
 						</label>
 						<div className="relative mt-1">
@@ -131,7 +134,11 @@ const Login = () => {
 								onClick={() => setShowPassword(!showPassword)}
 								className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-400 hover:text-primary"
 							>
-								{showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+								{showPassword ? (
+									<FiEyeOff size={20} />
+								) : (
+									<FiEye size={20} />
+								)}
 							</button>
 						</div>
 					</div>
@@ -156,7 +163,7 @@ const Login = () => {
 					{/* Login Button */}
 					<button
 						type="submit"
-						className="flex items-center justify-center w-full gap-2 py-3 font-semibold text-white transition duration-200 bg-primary rounded-md hover:bg-primary/80"
+						className="flex items-center justify-center w-full gap-2 py-3 font-semibold text-white transition duration-200 bg-green-500 rounded-md hover:bg-green-600"
 					>
 						{isLoading && <AiOutlineLoading className="animate-spin" />}
 						Log In
@@ -179,7 +186,7 @@ const Login = () => {
 						transition={{ delay: 0.1 }}
 						className="w-full max-w-xs p-6 text-center bg-white rounded-lg shadow-lg"
 					>
-						<FaCheckCircle className="mx-auto mb-4 text-5xl text-primary" />
+						<FaCheckCircle className="mx-auto mb-4 text-5xl text-green-500" />
 						<h2 className="text-xl font-semibold text-gray-800">
 							Login Successful!
 						</h2>

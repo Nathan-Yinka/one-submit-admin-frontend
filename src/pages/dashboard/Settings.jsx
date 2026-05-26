@@ -223,7 +223,7 @@ const Settings = () => {
 
 				<div className="flex justify-end mt-8">
 					<button
-						className="flex items-center gap-2 px-6 py-3 text-lg text-white bg-blue-600 rounded-md shadow-lg hover:bg-blue-700"
+						className="flex items-center gap-2 px-6 py-3 text-lg text-white bg-green-500 rounded-md shadow-lg hover:bg-green-600"
 						onClick={handleSubmit}
 					>
 						{isUpdatingSettings && (
