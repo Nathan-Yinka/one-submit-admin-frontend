@@ -38,14 +38,22 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 		};
 	}, [hoverTimeout]);
 
+	const navClass = ({ isActive }) =>
+		[
+			"flex items-center gap-x-3 py-2.5 px-4 rounded-xl border transition-all duration-200",
+			isActive
+				? "bg-primary/15 text-[#83FF90] border-primary/40 shadow-[0_10px_28px_rgba(34,197,94,0.16)]"
+				: "text-gray-300 border-transparent hover:bg-white/10 hover:text-white",
+		].join(" ");
+
 	return (
 		<div
 			className={`transition-all duration-300 ${
 				isCollapsed ? "w-16" : "w-64"
-			} bg-black text-white h-full flex flex-col`}
+			} bg-[#050806] text-white h-full flex flex-col border-r border-primary/25 shadow-2xl`}
 		>
 			{/* Logo Section */}
-			<div className="flex items-center justify-center py-4 bg-black border-r-[3px] border-r-[#072C3B]">
+			<div className="flex items-center justify-center p-4 m-3 rounded-2xl border border-white/10 bg-white/[0.03]">
 				<img
 					src={isCollapsed ? logoSmall : logoFull}
 					alt="Logo"
@@ -60,11 +68,7 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 					<NavLink
 						to="/home"
 						end // Add this prop for exact matching
-						className={({ isActive }) =>
-							isActive
-								? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
-								: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
-						}
+						className={navClass}
 						onClick={closeSidebar}
 					>
 						<MdOutlineDashboard className="text-xl" />
@@ -81,11 +85,7 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 				<div className="relative group">
 					<NavLink
 						to="/home/hold"
-						className={({ isActive }) =>
-							isActive
-								? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
-								: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
-						}
+						className={navClass}
 						onClick={closeSidebar} // Close sidebar on click
 					>
 						<AiFillBook className="text-xl" />
@@ -105,7 +105,7 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 					onMouseLeave={handleMouseLeave}
 				>
 					<button
-						className="flex items-center w-full px-4 py-2 rounded-md gap-x-3 hover:bg-primary"
+						className="flex items-center w-full px-4 py-2.5 rounded-xl gap-x-3 text-gray-300 border border-transparent hover:bg-white/10 hover:text-white transition"
 						onClick={() => setUsersDropdownOpen(!isUsersDropdownOpen)}
 					>
 						<BiUser className="text-xl" />
@@ -126,22 +126,14 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 						<div className="ml-8">
 							<NavLink
 								to="/home/allusers"
-								className={({ isActive }) =>
-									isActive
-										? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
-										: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
-								}
+								className={navClass}
 								onClick={closeSidebar} // Close sidebar on click
 							>
 								All users
 							</NavLink>
 							<NavLink
 								to="/home/negusers"
-								className={({ isActive }) =>
-									isActive
-										? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
-										: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
-								}
+								className={navClass}
 								onClick={closeSidebar} // Close sidebar on click
 							>
 								Negative users
@@ -158,25 +150,17 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 
 					{/* Hover Popup for Collapsed Sidebar Dropdown */}
 					{isCollapsed && hoveredDropdown === "users" && (
-						<div className="absolute top-0 z-10 text-sm bg-red-900 rounded-md shadow-md left-16">
+						<div className="absolute top-0 z-10 text-sm bg-[#101912] border border-white/10 rounded-xl shadow-md left-16">
 							<NavLink
 								to="/home/negusers"
-								className={({ isActive }) =>
-									isActive
-										? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
-										: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
-								}
+								className={navClass}
 								onClick={closeSidebar} // Close sidebar on click
 							>
 								All users
 							</NavLink>
 							<NavLink
 								to="/home/negative"
-								className={({ isActive }) =>
-									isActive
-										? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
-										: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
-								}
+								className={navClass}
 								onClick={closeSidebar} // Close sidebar on click
 							>
 								Negative users
@@ -189,11 +173,7 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 				<div className="relative group">
 					<NavLink
 						to="/home/products"
-						className={({ isActive }) =>
-							isActive
-								? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
-								: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
-						}
+						className={navClass}
 						onClick={closeSidebar} // Close sidebar on click
 					>
 						<BsCartDash className="text-xl" />
@@ -212,11 +192,7 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 				<div className="relative group">
 					<NavLink
 						to="/home/packs"
-						className={({ isActive }) =>
-							isActive
-								? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
-								: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
-						}
+						className={navClass}
 						onClick={closeSidebar} // Close sidebar on click
 					>
 						<BiBookOpen className="text-xl" />
@@ -238,7 +214,7 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 					onMouseLeave={handleMouseLeave}
 				>
 					<button
-						className="flex items-center w-full px-4 py-2 rounded-md gap-x-3 hover:bg-primary"
+						className="flex items-center w-full px-4 py-2.5 rounded-xl gap-x-3 text-gray-300 border border-transparent hover:bg-white/10 hover:text-white transition"
 						onClick={() =>
 							setFinancialDropdownOpen(!isFinancialDropdownOpen)
 						}
@@ -259,22 +235,14 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 						<div className="ml-8">
 							<NavLink
 								to="/home/deposits"
-								className={({ isActive }) =>
-									isActive
-										? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
-										: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
-								}
+								className={navClass}
 								onClick={closeSidebar} // Close sidebar on click
 							>
 								Deposits list
 							</NavLink>
 							<NavLink
 								to="/home/withdrawals"
-								className={({ isActive }) =>
-									isActive
-										? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
-										: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
-								}
+								className={navClass}
 								onClick={closeSidebar} // Close sidebar on click
 							>
 								Withdrawals list
@@ -291,25 +259,17 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 
 					{/* Hover Popup for Collapsed Sidebar Dropdown */}
 					{isCollapsed && hoveredDropdown === "financial" && (
-						<div className="absolute top-0 z-10 text-sm bg-blue-900 rounded-md shadow-md left-16">
+						<div className="absolute top-0 z-10 text-sm bg-[#101912] border border-white/10 rounded-xl shadow-md left-16">
 							<NavLink
 								to="/home/deposits"
-								className={({ isActive }) =>
-									isActive
-										? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
-										: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
-								}
+								className={navClass}
 								onClick={closeSidebar} // Close sidebar on click
 							>
 								Deposits list
 							</NavLink>
 							<NavLink
 								to="/home/withdrawals"
-								className={({ isActive }) =>
-									isActive
-										? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
-										: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
-								}
+								className={navClass}
 								onClick={closeSidebar} // Close sidebar on click
 							>
 								Withdrawals list
@@ -322,11 +282,7 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 				<div className="relative group">
 					<NavLink
 						to="/home/events"
-						className={({ isActive }) =>
-							isActive
-								? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
-								: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
-						}
+						className={navClass}
 						onClick={closeSidebar} // Close sidebar on click
 					>
 						<FaRegCalendarAlt className="text-xl" />
@@ -345,11 +301,7 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 				<div className="relative group">
 					<NavLink
 						to="/home/logs"
-						className={({ isActive }) =>
-							isActive
-								? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
-								: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
-						}
+						className={navClass}
 						onClick={closeSidebar} // Close sidebar on click
 					>
 						<FaRegEye className="text-xl" />
@@ -368,11 +320,7 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 				<div className="relative group">
 					<NavLink
 						to="/home/settings"
-						className={({ isActive }) =>
-							isActive
-								? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
-								: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
-						}
+						className={navClass}
 						onClick={closeSidebar} // Close sidebar on click
 					>
 						<BiCog className="text-xl" />
@@ -391,11 +339,7 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 				<div className="relative group">
 					<NavLink
 						to="/home/video"
-						className={({ isActive }) =>
-							isActive
-								? "flex items-center gap-x-3 py-2 px-4 bg-secondary text-green-500 rounded-md"
-								: "flex items-center gap-x-3 py-2 px-4 hover:bg-secondary hover:text-primary rounded-md"
-						}
+						className={navClass}
 						onClick={closeSidebar} // Close sidebar on click
 					>
 						<FaVideo className="text-xl" />
@@ -414,7 +358,7 @@ function SideBarWeb({ isCollapsed, closeSidebar }) {
 			{/* Logout Button */}
 			<button
 				onClick={handleLogout}
-				className="flex items-center px-4 py-2 text-red-500 rounded-md gap-x-3 hover:bg-red-100"
+				className="flex items-center px-4 py-3 m-3 text-red-300 rounded-xl gap-x-3 border border-red-500/15 hover:bg-red-500/10 transition"
 			>
 				<AiOutlineLogout className="text-xl" />
 				{!isCollapsed && <span>Logout</span>}

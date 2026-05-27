@@ -73,7 +73,7 @@ const HomeLayout = () => {
 	};
 
 	return (
-		<div className="flex h-screen bg-gray-50">
+		<div className="admin-shell flex h-screen bg-gray-50">
 			{/* Sidebar */}
 			<div
 				className={`transition-all duration-300 ${isSidebarCollapsed ? "w-16" : "w-64"
